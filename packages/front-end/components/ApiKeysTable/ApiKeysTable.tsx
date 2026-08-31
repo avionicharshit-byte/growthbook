@@ -12,6 +12,7 @@ import { useEnvironments } from "@/services/features";
 import Tooltip from "@/ui/Tooltip";
 import Badge from "@/ui/Badge";
 import ConfirmDialog from "@/ui/ConfirmDialog";
+import ExpiresCell from "@/components/ApiKeysTable/ExpiresCell";
 
 type ApiKeysTableProps = {
   onDelete: (keyId: string | undefined) => () => Promise<void>;
@@ -59,6 +60,7 @@ export const ApiKeysTable: FC<ApiKeysTableProps> = ({
               <th key={env.id}>{env.id}</th>
             ))}
             <th>Last Used</th>
+            <th>Expires</th>
             {canDeleteKeys && <th style={{ width: 30 }}></th>}
           </tr>
         </thead>
@@ -155,6 +157,9 @@ export const ApiKeysTable: FC<ApiKeysTableProps> = ({
                     <span className="text-muted">Unknown</span>
                   </Tooltip>
                 )}
+              </td>
+              <td>
+                <ExpiresCell expiresAt={key.expiresAt} />
               </td>
               {canDeleteKeys && (
                 <td>
